@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IELTS Portal</title>
+
   <style>
     * {
       box-sizing: border-box;
@@ -17,20 +18,27 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+      background: linear-gradient(
+        135deg,
+        #0f172a 0%,
+        #1e1b4b 50%,
+        #311042 100%
+      );
       position: relative;
       overflow: hidden;
       color: #ffffff;
     }
 
-    /* Lingkaran Hiasan Latar Belakang (Blur Effect) */
-    body::before, body::after {
+    /* Lingkaran hiasan latar belakang */
+    body::before,
+    body::after {
       content: '';
       position: absolute;
       border-radius: 50%;
       filter: blur(80px);
       z-index: 1;
     }
+
     body::before {
       width: 300px;
       height: 300px;
@@ -38,6 +46,7 @@
       top: 10%;
       left: 15%;
     }
+
     body::after {
       width: 250px;
       height: 250px;
@@ -46,7 +55,7 @@
       right: 15%;
     }
 
-    /* Kartu Utama dengan Efek Glassmorphism (Blur Card) */
+    /* Kartu Glassmorphism */
     .glass-card {
       position: relative;
       z-index: 2;
@@ -98,6 +107,10 @@
       transition: all 0.3s ease;
     }
 
+    .input-group input::placeholder {
+      color: #64748b;
+    }
+
     .input-group input:focus {
       border-color: #818cf8;
       box-shadow: 0 0 10px rgba(129, 140, 248, 0.3);
@@ -107,7 +120,11 @@
     .btn {
       width: 100%;
       padding: 12px;
-      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      background: linear-gradient(
+        135deg,
+        #6366f1 0%,
+        #4f46e5 100%
+      );
       border: none;
       border-radius: 10px;
       color: #ffffff;
@@ -123,8 +140,16 @@
       transform: translateY(-1px);
     }
 
+    .btn:active {
+      transform: translateY(0);
+    }
+
     .btn-logout {
-      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      background: linear-gradient(
+        135deg,
+        #ef4444 0%,
+        #dc2626 100%
+      );
       box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
       margin-top: 20px;
     }
@@ -136,81 +161,244 @@
       display: none;
     }
 
-    /* Sembunyikan Dashboard Secara Default */
+    .success-message {
+      color: #86efac;
+      font-size: 13px;
+      margin-top: 14px;
+      display: none;
+    }
+
+    /* Dashboard disembunyikan secara default */
     #dashboard-sec {
       display: none;
     }
+
+    .dashboard-content {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
   </style>
 </head>
+
 <body>
 
-  <!-- HALAMAN LOGIN -->
+  <!-- =========================
+       HALAMAN LOGIN
+  ========================== -->
   <div id="login-sec" class="glass-card">
+
     <h2>IELTS PORTAL</h2>
-    <p class="subtitle">Masukkan password untuk akses</p>
-    
+
+    <p class="subtitle">
+      Masukkan password untuk akses
+    </p>
+
     <form onsubmit="handleLogin(event)">
+
       <div class="input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="••••••••" required>
+
+        <label for="password">
+          Password
+        </label>
+
+        <input
+          type="password"
+          id="password"
+          placeholder="••••••••"
+          autocomplete="current-password"
+          required
+        >
+
       </div>
 
-      <button type="submit" class="btn">Login</button>
-      <div id="errorMsg" class="error-message">Password salah!</div>
+      <button type="submit" class="btn">
+        Login
+      </button>
+
+      <div id="errorMsg" class="error-message">
+        Password salah!
+      </div>
+
     </form>
+
   </div>
 
-  <!-- HALAMAN DASHBOARD / KONTEN UTAMA -->
+
+  <!-- =========================
+       DASHBOARD
+  ========================== -->
   <div id="dashboard-sec" class="glass-card">
-    <h2>Selamat Datang!</h2>
-    <p class="subtitle">Kamu berhasil login ke IELTS Portal.</p>
-    
-    <!-- TARUH KONTEN WEBSITE KAMU DI SINI -->
-    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; font-size: 14px;">
-      Isi konten, materi, atau link latihan IELTS bisa ditaruh di area ini.
+
+    <h2>
+      Selamat Datang!
+    </h2>
+
+    <p class="subtitle">
+      Kamu berhasil login ke IELTS Portal.
+    </p>
+
+    <div class="dashboard-content">
+
+      <strong>IELTS Learning Portal</strong>
+
+      <br><br>
+
+      Isi konten website kamu di sini.
+
+      <br>
+
+      Kamu bisa menambahkan:
+      <br>
+      • Materi IELTS
+      <br>
+      • Listening
+      <br>
+      • Reading
+      <br>
+      • Writing
+      <br>
+      • Speaking
+      <br>
+      • Latihan soal
+      <br>
+      • Link latihan IELTS
+
     </div>
 
-    <button onclick="logout()" class="btn btn-logout">Logout</button>
+    <button
+      onclick="logout()"
+      class="btn btn-logout"
+    >
+      Logout
+    </button>
+
   </div>
 
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
   <script>
-    // Cek status saat halaman pertama kali dibuka
-    if (sessionStorage.getItem("isLoggedIn") === "true") {
+
+    /*
+      PASSWORD:
+      IELTS
+
+      SHA-256:
+      59388c746c02e0bd0d11dfb4e563dab3be72fc7092c2b38f59729c4a40c73a7e
+    */
+
+    // Cek apakah user sebelumnya sudah login
+    if (
+      sessionStorage.getItem("isLoggedIn") === "true"
+    ) {
       showDashboard();
     }
 
+
+    // =========================
+    // PROSES LOGIN
+    // =========================
     async function handleLogin(e) {
+
       e.preventDefault();
-      const inputPass = document.getElementById("password").value;
 
-      // Hash SHA-256 (Aman dari inspect element)
+      const inputPass =
+        document.getElementById("password").value;
+
+      // Membuat hash SHA-256
       const encoder = new TextEncoder();
-      const data = encoder.encode(inputPass);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
-      // Hash SHA-256 untuk kata "IELTS"
-      const targetHash = "c1257492cfa4d922a94fb2120db0d075ecf556e9dc76e0ffc7e9915998a1bf18";
+      const data =
+        encoder.encode(inputPass);
 
+      const hashBuffer =
+        await crypto.subtle.digest(
+          "SHA-256",
+          data
+        );
+
+      const hashArray =
+        Array.from(
+          new Uint8Array(hashBuffer)
+        );
+
+      const hashHex =
+        hashArray
+          .map(
+            b => b
+              .toString(16)
+              .padStart(2, "0")
+          )
+          .join("");
+
+      // SHA-256 password "IELTS"
+      const targetHash =
+        "59388c746c02e0bd0d11dfb4e563dab3be72fc7092c2b38f59729c4a40c73a7e";
+
+
+      // Cek password
       if (hashHex === targetHash) {
-        sessionStorage.setItem("isLoggedIn", "true");
+
+        // Simpan status login
+        sessionStorage.setItem(
+          "isLoggedIn",
+          "true"
+        );
+
+        // Tampilkan dashboard
         showDashboard();
+
       } else {
-        document.getElementById("errorMsg").style.display = "block";
-        document.getElementById("password").value = "";
+
+        // Tampilkan pesan error
+        document.getElementById(
+          "errorMsg"
+        ).style.display = "block";
+
+        // Kosongkan input password
+        document.getElementById(
+          "password"
+        ).value = "";
+
       }
+
     }
 
+
+    // =========================
+    // MENAMPILKAN DASHBOARD
+    // =========================
     function showDashboard() {
-      document.getElementById("login-sec").style.display = "none";
-      document.getElementById("dashboard-sec").style.display = "block";
+
+      document.getElementById(
+        "login-sec"
+      ).style.display = "none";
+
+      document.getElementById(
+        "dashboard-sec"
+      ).style.display = "block";
+
     }
 
+
+    // =========================
+    // LOGOUT
+    // =========================
     function logout() {
-      sessionStorage.removeItem("isLoggedIn");
+
+      sessionStorage.removeItem(
+        "isLoggedIn"
+      );
+
       location.reload();
+
     }
+
   </script>
 
 </body>
